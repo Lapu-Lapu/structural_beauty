@@ -10,16 +10,17 @@ console.log(groups[g])
 
 let range = n => Array.from(Array(n).keys())
 
-const cartesian =
-  (...a) => a.reduce((a, b) => a.flatMap(d => b.map(e => [d, e].flat())));
+const cartesian = (...a) => a.reduce((a, b) => a.flatMap(d => b.map(e => [d, e].flat())));
 
-const images = cartesian(['low'], ['-100', '-66', '-33', '33', '66', '100'])
+const images = cartesian(['low', 'medium', 'high'], ['-100', '-66', '-33', '33', '66', '100']).map(l=>original_str(l))
+images.push(...['low', 'medium', 'high'].map(s=>`data/human-in-the-loop/stimuli/stimuli_${s}/avgimg_wr_${s}.png`))
 
+console.log(images)
 let make_stim_dict = function(n){
     n1 = Math.floor(Math.random() * images.length)
     n2 = Math.floor(Math.random() * images.length)
-    return {original: original_str(images[n1]),
-            inverted: original_str(images[n2])}
+    return {original: images[n1],
+            inverted: images[n2]}
 }
 
 function saveData(name, data) {
