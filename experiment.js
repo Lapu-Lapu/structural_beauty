@@ -10,11 +10,16 @@ console.log(groups[g])
 
 let range = n => Array.from(Array(n).keys())
 
+const cartesian =
+  (...a) => a.reduce((a, b) => a.flatMap(d => b.map(e => [d, e].flat())));
+
+const images = cartesian(['low'], ['-100', '-66', '-33', '33', '66', '100'])
+
 let make_stim_dict = function(n){
-    n1 = Math.floor(Math.random() * N_img)
-    n2 = Math.floor(Math.random() * N_img)
-    return {original: original_str('high', '-100'),
-            inverted: original_str('high', '-100')}
+    n1 = Math.floor(Math.random() * images.length)
+    n2 = Math.floor(Math.random() * images.length)
+    return {original: original_str(images[n1]),
+            inverted: original_str(images[n2])}
 }
 
 function saveData(name, data) {
@@ -91,6 +96,7 @@ var test = {
           right: jsPsych.timelineVariable('inverted'),
           stimulus_type: 'test',
       },
+      stimulus_width: 512,
       prompt: question,
       on_finish: function() {
         saveData(
@@ -222,7 +228,7 @@ var save = {
 timeline.push(save);
 
 
-timeline = [consent];
+timeline = [];
 timeline.push(preload)
 test_procedure = {
     timeline: [test],
