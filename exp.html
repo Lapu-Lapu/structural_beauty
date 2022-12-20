@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Expra E: Structural Beauty</title>
+    <meta charset="utf-8"/>
+    <script src="dist/jspsych.js"></script>
+    <script src="dist/plugin-preload.js"></script>
+    <script src="dist/plugin-html-keyboard-response.js"></script>
+    <script src="dist/plugin-html-button-response.js"></script>
+    <script src="dist/plugin-image-keyboard-response.js"></script>
+    <script src="dist/plugin-survey-text.js"></script>
+    <script src="dist/jspsych-image-2afc.js"></script>
+    <link href="dist/jspsych.css" rel="stylesheet" type="text/css">
+  </head>
+  <body></body>
+    <script>
+        let sona_link_str = "https://marburg-psychology.sona-systems.com/webstudy_credit.aspx?experiment_id=683&credit_token=ef3f6b6cfcb94eac90e079171f750fb1&survey_code="
+        let consent_msg = '<b> Einverständniserklärung </b> <br> <br> In dieser Studie soll die Wahrnehmung von künstlich generierten Gesichtern untersucht werden. Die Studie ist Teil des Experimentalpraktikums "Psychophysikalische Evaluation von Deep Learning Modellen" (2021) und wird zu Lernzwecken durchgeführt. <br> <br> Mit meiner Einwilligung erkläre ich, dass ich die Information zur Studie gelesen und verstanden habe. Ich habe keine weiteren Fragen bezüglich der Studie und der verbundenen Risiken. Ich weiß, dass eine Ablehnung oder ein Rücktritt von der Studie keine negativen Konsequenzen für mich hat. Ich entscheide mich freiwillig für die Teilnahme an der Studie und willige in die Verarbeitung und ggf. Veröffentlichung meiner pseudonomisierten Daten ein. Ich weiß, dass die von mir erhobenen Daten aufgrund der Pseudonomisierung nicht mehr gelöscht werden können und stimme diesem zu. <br> <br> Wenn du Fragen zur Forschung oder zu den Rechten der Studienteilnehmer*innen hast, zögere bitte nicht, die Forscher über diese E-Mail zu kontaktieren: knoppbe@staff.uni-marburg.de <br> <br> Um einzuwilligen, klicke bitte "Ich stimme zu." <br> Wenn du nicht einwilligst, kannst du einfach das Browserfenster schließen, um das Experiment zu beenden. <br> <br>  '
+        let instructions = '<b>Herzlich willkommen zu unserer Studie!</b>\n\n<br>Wir möchten untersuchen, ob ein künstliches neuronales Netz Entscheidungen von Menschen vorhersagen kann. Dazu präsentieren wir Ihnen im Folgenden jeweils zwei Bilder mit Gesichtern, bei denen Sie entscheiden sollen, welches der beiden menschlicher aussieht. Wenn Sie das linke Gesicht für menschlicher halten, drücken Sie bitte die Taste "F", bei dem rechten Gesicht bitte die Taste "J". Es gibt keine richtigen und falschen Antworten. Antworten Sie bitte so schnell und intuitiv wie möglich.</br><br>Die Untersuchung funktioniert nur am Computer und wird ungefähr eine Viertelstunde dauern. Es wird 5 Blöcke geben und nach jedem Block kommt eine Pause von 15 Sekunden. Am Ende werden Sie automatisch zu SONA weitergeleitet, falls Sie sich Versuchspersonenstunden anrechnen lassen wollen.</br>'
+        let original_str = (g, c) => `data/human-in-the-loop/stimuli/stimuli_${g}/${g}_(${c}).png`
+        let question = '<p>Welches Gesicht sieht menschlicher aus?\nDrücken Sie bitte die Taste "F" für das linke, "J" für das rechte Gesicht</p>'
+        let msg = [
+            "Block 1 von 5 fertig. 15 Sekunden Pause.",
+            "Block 2 von 5 fertig. 15 Sekunden Pause.",
+            "Block 3 von 5 fertig. 15 Sekunden Pause.",
+            "Block 4 von 5 fertig. 15 Sekunden Pause.",
+        ]
+        let space_to_continue_msg = "Drücke die Leertaste um fortzufahren."
+        let warn_msg = "<p style='color:Tomato;'>Bitte bleibe fokussiert! Wir brauchen deine Aufmerksamkeit!</p><p>\nDrücke die Leertaste um fortzufahren.</p>"
+        let reward_msg = "<p>Gut! Bleibe weiter so aufmerksam!\nDrücke die Leertaste um fortzufahren.</p>" // todo: consistent du/Sie
+        let sona_msg = "Nach einer optionalen Umfrage werden Sie zu SONA weiter geleitet. Drücken Sie eine beliebige Taste."
+        let data_dir = "data/"
+        console.log(original_str('high', '-100'))
+    </script>
+  <script src='experiment.js'></script>
+</html>
