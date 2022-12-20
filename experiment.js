@@ -1,4 +1,4 @@
-N = 500  // trials
+N = 5  // trials
 console.log(N)
 N_img = 1000
 N_img_in_block = 100
@@ -13,8 +13,8 @@ let range = n => Array.from(Array(n).keys())
 let make_stim_dict = function(n){
     n1 = Math.floor(Math.random() * N_img)
     n2 = Math.floor(Math.random() * N_img)
-    return {original: original_str(n1),
-            inverted: original_str(n2)}
+    return {original: original_str('high', '-100'),
+            inverted: original_str('high', '-100')}
 }
 
 function saveData(name, data) {
@@ -220,6 +220,15 @@ var save = {
     }
 };
 timeline.push(save);
+
+
 timeline = [consent];
+timeline.push(preload)
+test_procedure = {
+    timeline: [test],
+    timeline_variables: test_stimuli,
+    randomize_order: true,
+}
+timeline.push(test_procedure)
 console.log(timeline);
 jsPsych.run(timeline);
