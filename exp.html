@@ -3,6 +3,7 @@
   <head>
     <title>Expra E: Structural Beauty</title>
     <meta charset="utf-8"/>
+    <script src="jatos.js"></script>
     <script src="dist/jspsych.js"></script>
     <script src="dist/plugin-preload.js"></script>
     <script src="dist/plugin-html-keyboard-response.js"></script>
@@ -20,10 +21,10 @@
         let original_str = a => `data/human-in-the-loop/stimuli/stimuli_${a[0]}/${a[0]}_(${a[1]}).png`
         let question = '<p>Welches Gesicht sieht menschlicher aus?\nDrücken Sie bitte die Taste "F" für das linke, "J" für das rechte Gesicht</p>'
         let msg = [
-            "Block 1 von 5 fertig. 15 Sekunden Pause.",
-            "Block 2 von 5 fertig. 15 Sekunden Pause.",
-            "Block 3 von 5 fertig. 15 Sekunden Pause.",
-            "Block 4 von 5 fertig. 15 Sekunden Pause.",
+            "Block 1 von 3 fertig. 15 Sekunden Pause.",
+            "Block 2 von 3 fertig. 15 Sekunden Pause.",
+            "Block 3 von 3 fertig. 15 Sekunden Pause.",
+            "Block 4 von 3 fertig. 15 Sekunden Pause.",
         ]
         let space_to_continue_msg = "Drücke die Leertaste um fortzufahren."
         let warn_msg = "<p style='color:Tomato;'>Bitte bleibe fokussiert! Wir brauchen deine Aufmerksamkeit!</p><p>\nDrücke die Leertaste um fortzufahren.</p>"

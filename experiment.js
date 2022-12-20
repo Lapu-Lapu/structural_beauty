@@ -1,7 +1,7 @@
-N = 50  // trials
+N = 90  // trials
 console.log(N)
 
-N_img_in_block = 100
+N_img_in_block = 30
 attention_check_freq = 90
 
 let range = n => Array.from(Array(n).keys())
@@ -37,8 +37,10 @@ var jsPsych = initJsPsych({
     auto_update_progress_bar: false,
     message_progress_bar: 'Block Completion Progress',
     on_finish: function(data){ 
+        jatos.endStudy(jsPsych.data.get().json());
         window.location.assign(sona_link_str+sona_id)
     },
+    show_progress_bar: true,
 })
 
 let sona_id = jsPsych.data.urlVariables()['sona_id']
@@ -102,10 +104,11 @@ var test = {
       stimulus_width: 512,
       prompt: question,
       on_finish: function() {
-        saveData(
-          `experiment_data_${sona_id}_${subject_id}`,
-          jsPsych.data.get().csv()
-        );
+        // saveData(
+        //   `experiment_data_${sona_id}_${subject_id}`,
+        //   jsPsych.data.get().csv()
+        // );
+        jatos.submitResultData(jsPsych.data.get().json());
 		var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
 		jsPsych.setProgressBar(curr_progress_bar_value + (1/N_img_in_block));
       }
@@ -191,7 +194,7 @@ var break_conditional = {
 };
 
 test_procedure = {
-    timeline: [test, break_conditional, attention_conditional],
+    timeline: [test, break_conditional],// attention_conditional],
     timeline_variables: test_stimuli,
     randomize_order: true,
 }
@@ -208,7 +211,7 @@ var survey = {
         name: 'survey'
     }]
 }
-timeline.push(survey)
+// timeline.push(survey)
 
 
 var goodbye = {
@@ -222,22 +225,17 @@ var save = {
     trial_duration: 1000,
     on_start: function() {
         console.log('hidden response for saving');
-      saveData(
-        `experiment_data_${sona_id}_${subject_id}_${groups[g]}`,
-        jsPsych.data.get().csv()
-      );
+      // saveData(
+      //   `experiment_data_${sona_id}_${subject_id}`,
+      //   jsPsych.data.get().csv()
+      // );
     }
 };
 timeline.push(save);
 
 
-timeline = [];
-timeline.push(preload)
-test_procedure = {
-    timeline: [test],
-    timeline_variables: test_stimuli,
-    randomize_order: true,
-}
-timeline.push(test_procedure)
+// timeline = [];
+// timeline.push(preload)
+// timeline.push(test_procedure)
 console.log(timeline);
 jsPsych.run(timeline);
