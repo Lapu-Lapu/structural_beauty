@@ -1,22 +1,24 @@
-N = 5  // trials
+N = 50  // trials
 console.log(N)
-N_img = 1000
+
 N_img_in_block = 100
 attention_check_freq = 90
 
-let g = 1
-let groups = ['16', '32', '64']
-console.log(groups[g])
-
 let range = n => Array.from(Array(n).keys())
 
-const cartesian = (...a) => a.reduce((a, b) => a.flatMap(d => b.map(e => [d, e].flat())));
+const classes = ['-100', '-66', '-33', '33', '66', '100'];
+const base = ['low', 'medium', 'high'];
 
-const images = cartesian(['low', 'medium', 'high'], ['-100', '-66', '-33', '33', '66', '100']).map(l=>original_str(l))
-images.push(...['low', 'medium', 'high'].map(s=>`data/human-in-the-loop/stimuli/stimuli_${s}/avgimg_wr_${s}.png`))
+const img = {}
+for (let c of base) {
+    console.log('t', c)
+    img[c] = classes.map(s=>original_str([c, s]))
+    img[c].push(`data/human-in-the-loop/stimuli/stimuli_${c}/avgimg_wr_${c}.png`)
+}
 
-console.log(images)
 let make_stim_dict = function(n){
+    c = Math.floor(Math.random() * 3)
+    let images = img[base[c]]
     n1 = Math.floor(Math.random() * images.length)
     n2 = Math.floor(Math.random() * images.length)
     return {original: images[n1],
@@ -101,7 +103,7 @@ var test = {
       prompt: question,
       on_finish: function() {
         saveData(
-          `experiment_data_${sona_id}_${subject_id}_${groups[g]}`,
+          `experiment_data_${sona_id}_${subject_id}`,
           jsPsych.data.get().csv()
         );
 		var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
