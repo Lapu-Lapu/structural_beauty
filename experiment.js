@@ -1,7 +1,7 @@
-N = 90  // trials
+N = 240  // trials
 console.log(N)
 
-N_img_in_block = 30
+N_img_in_block = 80
 attention_check_freq = 90
 
 let range = n => Array.from(Array(n).keys())
