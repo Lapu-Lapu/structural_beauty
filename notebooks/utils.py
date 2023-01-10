@@ -53,3 +53,45 @@ def to_array(p):
 
 def mean(points):
     return np.mean(np.array([to_array(p) for p in points]), axis=0)
+
+
+############ thurstone
+from scipy.special import ndtri, ndtr
+from scipy.optimize import least_squares
+
+
+def make_countmatrix(data, school2idx):
+    A = np.zeros((len(school2idx), len(school2idx)))
+    for s1, s2 in data.index:
+        A[school2idx[s1], school2idx[s2]] += 1
+    return A
+
+def sort_schools(A, school2idx, axis=0):
+    schools_sorted = [list(school2idx)[idx] for idx in np.argsort(A.sum(axis=axis))]
+    # list(reversed(schools_sorted))
+    return schools_sorted
+
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+def logit(y):
+    return -np.log((1 - y) / y)
+
+def compute_p(data):
+    return (data.win1 + 1) / (data.win1 + data.win2 + 2)
+
+def compute_mu(data, F=ndtri):
+    mu = {}
+    for (s1, s2), p in compute_p(data).items():
+        if s2 == schools_sorted[-1]:
+            mu[s1] = F(p)
+    return mu
+
+def to_np(d):
+    return np.array([d[city] for city in schools_sorted[:-1]])
+
+def cost(schools_sorted, p, mu):
+    N = len(mu)
+    mu_1 = {schools_sorted[i]: mu[i] for i in range(N)}
+    mu_1[schools_sorted[-1]] = 0
+    return np.array([(v - ndtr(mu_1[s1] - mu_1[s2]))**2 for (s1, s2), v in p.items()])
