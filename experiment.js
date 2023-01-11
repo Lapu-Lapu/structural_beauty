@@ -70,7 +70,7 @@ var jsPsych = initJsPsych({
     auto_update_progress_bar: false,
     message_progress_bar: 'Block Completion Progress',
     on_finish: function(data){ 
-        jatos.endStudy(jsPsych.data.get().json());
+        // jatos.endStudy(jsPsych.data.get().csv());
         window.location.assign(sona_link_str+sona_id)
     },
     show_progress_bar: true,
@@ -130,7 +130,7 @@ timeline.push(preload)
 var fixation = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: '<div style="font-size:60px;">+</div>',
-    choices: 'q',
+    choices: "NO_KEYS",
     trial_duration: 200
 }
 
@@ -151,7 +151,7 @@ var test = {
         //   `experiment_data_${sona_id}_${subject_id}`,
         //   jsPsych.data.get().csv()
         // );
-        jatos.submitResultData(jsPsych.data.get().json());
+        jatos.submitResultData(jsPsych.data.get().csv());
 		var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
 		jsPsych.setProgressBar(curr_progress_bar_value + (1/N_img_in_block));
       }
