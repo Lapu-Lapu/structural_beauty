@@ -1,7 +1,7 @@
-N = 240  // trials
+N = 200  // trials
 console.log(N)
 
-N_img_in_block = 80
+N_img_in_block = 50
 attention_check_freq = 90
 
 let range = n => Array.from(Array(n).keys())
@@ -11,18 +11,51 @@ const base = ['low', 'medium', 'high'];
 
 const img = {}
 for (let c of base) {
-    console.log('t', c)
     img[c] = classes.map(s=>original_str([c, s]))
     img[c].push(`data/human-in-the-loop/stimuli/stimuli_${c}/avgimg_wr_${c}.png`)
 }
 
-let make_stim_dict = function(n){
+let make_stim_dict = function(){
     c = Math.floor(Math.random() * 3)
     let images = img[base[c]]
     n1 = Math.floor(Math.random() * images.length)
     n2 = Math.floor(Math.random() * images.length)
     return {original: images[n1],
             inverted: images[n2]}
+}
+let all_image_pairs = function(n){
+    stimuli = [];
+    for (let c of base) {
+        for (let i = 0; i < 6; i++) {
+            for (let j = 0; j < 6; j++) {
+                if (i == j) continue;
+                stimuli.push({
+                    original: original_str([c, classes[i]]),
+                    inverted: original_str([c, classes[j]])})
+            }
+            stimuli.push({
+                original: original_str([c, classes[i]]),
+                inverted: `data/human-in-the-loop/stimuli/stimuli_${c}/avgimg_wr_${c}.png`
+            })
+            stimuli.push({
+                original: `data/human-in-the-loop/stimuli/stimuli_${c}/avgimg_wr_${c}.png`,
+                inverted: original_str([c, classes[i]])
+            })
+        }
+    }
+    for (let m of base) {
+        for (let n of base) {
+            stimuli.push({
+                original: `data/human-in-the-loop/stimuli/stimuli_${m}/avgimg_wr_${m}.png`,
+                inverted: `data/human-in-the-loop/stimuli/stimuli_${n}/avgimg_wr_${n}.png`,
+            })
+            stimuli.push({
+                inverted: `data/human-in-the-loop/stimuli/stimuli_${m}/avgimg_wr_${m}.png`,
+                original: `data/human-in-the-loop/stimuli/stimuli_${n}/avgimg_wr_${n}.png`,
+            })
+        }
+    }
+    return stimuli
 }
 
 function saveData(name, data) {
@@ -78,7 +111,10 @@ var welcome = {
 };
 timeline.push(welcome)
 
-var test_stimuli = range(N).map(make_stim_dict)
+// var test_stimuli = range(N).map(make_stim_dict)
+
+var test_stimuli = all_image_pairs()
+test_stimuli.push(...range(N-test_stimuli.length).map(make_stim_dict))
 let stims = []
 for (let x of test_stimuli) {
     stims.push(x.original)
