@@ -127,6 +127,13 @@ var preload = {
 }
 timeline.push(preload)
 
+var fixation = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: '<div style="font-size:60px;">+</div>',
+    choices: 'q',
+    trial_duration: 200
+}
+
 var test = {
       type: image2afc,
       left: jsPsych.timelineVariable('original'),
@@ -230,7 +237,7 @@ var break_conditional = {
 };
 
 test_procedure = {
-    timeline: [test, break_conditional],// attention_conditional],
+    timeline: [fixation, test, break_conditional],// attention_conditional],
     timeline_variables: test_stimuli,
     randomize_order: true,
 }
