@@ -129,9 +129,9 @@ timeline.push(preload)
 
 var fixation = {
     type: jsPsychHtmlKeyboardResponse,
-    stimulus: '<div style="font-size:60px;">+</div>',
-    choices: "NO_KEYS",
-    trial_duration: 200
+    stimulus: '<div style="font-size:60px;">+</div><div style="white-space: pre-line">\n\n\n\nDrücken Sie Leertaste um das nächste Paar zu sehen (oder warten Sie 2s).</div>',
+    choices: " ",
+    trial_duration: 2000
 }
 
 var test = {
