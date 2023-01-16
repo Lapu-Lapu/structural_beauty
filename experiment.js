@@ -68,6 +68,7 @@ var jsPsych = initJsPsych({
     auto_update_progress_bar: false,
     message_progress_bar: 'Block Completion Progress',
     on_finish: function(data){ 
+        jatos.endStudy();
         // jatos.endStudy(jsPsych.data.get().csv());
         // window.location.assign(sona_link_str+sona_id)
     },
@@ -91,6 +92,18 @@ jsPsych.data.addProperties({
 
 
 timeline = []
+var save = {
+      type: jsPsychHtmlButtonResponse,
+      stimulus: 'Falls Sie sich gefragt haben, wie sich die Gesichter jeweils unterscheiden, möchten wir Sie zuletzt auch darüber aufklären. Mit dieser Studie wollen wir herausfinden, inwiefern das Verhältnis des Augenabstands zur Gesichtsbreite die Wahrnehmung der Schönheit männlicher Gesichter beeinflusst. Dafür haben wir männliche Gesichter verschiedenster Herkunft zu Durchschnittsgesichtern zusammengefasst, wodurch auch die Unschärfe in den dargestellten Bildern entstanden ist. Anschließend haben wir jeweils den Augenabstand manipuliert. <br>Wir bedanken uns erneut recht herzlich für Ihre Teilnahme!',
+	choices: ['Beende das Experiment!'],
+    on_start: function() {
+        console.log('hidden response for saving');
+      // saveData(
+      //   `experiment_data_${sona_id}_${subject_id}`,
+      //   jsPsych.data.get().csv()
+      // );
+    }
+};
 
 var consent = {
     type: jsPsychHtmlButtonResponse,
@@ -125,6 +138,7 @@ timeline.push(survey)
 
 var test_stimuli = all_image_pairs()
 test_stimuli.push(...range(N-test_stimuli.length).map(make_stim_dict))
+// test_stimuli = test_stimuli.slice(1, 10)
 let stims = []
 for (let x of test_stimuli) {
     stims.push(x.original)
@@ -271,20 +285,8 @@ var goodbye = {
 	type: jsPsychHtmlKeyboardResponse,
 	stimulus: sona_msg
 };
-timeline.push(goodbye)
-var save = {
-      type: jsPsychHtmlKeyboardResponse,
-      stimulus: 'saving',
-    trial_duration: 1000,
-    on_start: function() {
-        console.log('hidden response for saving');
-      // saveData(
-      //   `experiment_data_${sona_id}_${subject_id}`,
-      //   jsPsych.data.get().csv()
-      // );
-    }
-};
 timeline.push(save);
+//timeline.push(goodbye)
 
 
 // timeline = [];
