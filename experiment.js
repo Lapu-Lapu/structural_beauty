@@ -106,6 +106,21 @@ var welcome = {
 };
 timeline.push(welcome)
 
+var survey = {
+    type: jsPsychSurvey,
+    pages: [
+	    [
+    {
+	type: 'multi-choice',
+        prompt: "Welchem Geschlecht ordnen Sie sich zu?",
+	options: ['männlich', 'weiblich', 'divers'],
+        //required: true,
+        //name: 'survey'
+    }
+	    ]]
+}
+timeline.push(survey)
+
 // var test_stimuli = range(N).map(make_stim_dict)
 
 var test_stimuli = all_image_pairs()
