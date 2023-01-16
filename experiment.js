@@ -44,16 +44,10 @@ let all_image_pairs = function(n){
         }
     }
     for (let m of base) {
-        for (let n of base) {
-            stimuli.push({
-                original: `data/human-in-the-loop/stimuli/stimuli_${m}/avgimg_wr_${m}.png`,
-                inverted: `data/human-in-the-loop/stimuli/stimuli_${n}/avgimg_wr_${n}.png`,
-            })
-            stimuli.push({
-                inverted: `data/human-in-the-loop/stimuli/stimuli_${m}/avgimg_wr_${m}.png`,
-                original: `data/human-in-the-loop/stimuli/stimuli_${n}/avgimg_wr_${n}.png`,
-            })
-        }
+	    stimuli.push({
+		original: `data/human-in-the-loop/stimuli/stimuli_${m}/avgimg_wr_${m}.png`,
+		inverted: `data/human-in-the-loop/stimuli/stimuli_${m}/avgimg_wr_${m}.png`,
+	    })
     }
     return stimuli
 }
@@ -130,9 +124,9 @@ timeline.push(preload)
 
 var fixation = {
     type: jsPsychHtmlKeyboardResponse,
-    stimulus: '<div style="font-size:60px;">+</div><div style="white-space: pre-line">\n\n\n\nDrücken Sie Leertaste um das nächste Paar zu sehen (oder warten Sie 2s).</div>',
-    choices: " ",
-    trial_duration: 2000
+    stimulus: '<div style="font-size:60px;">+</div>',
+    //choices: " ",
+    trial_duration: 1000
 }
 
 var test = {
