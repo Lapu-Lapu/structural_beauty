@@ -65,19 +65,20 @@ function saveData(name, data) {
     xhr.send(JSON.stringify({ filename: data_dir+name, filedata: data }));
 }
 
+// let sona_id = jsPsych.data.urlVariables()['sona_id']
+let sona_id = vars.sona_participant_id
+console.log(sona_id)
+
 var jsPsych = initJsPsych({
     show_progress_bar: true,
     auto_update_progress_bar: false,
     message_progress_bar: 'Block Completion Progress',
     on_finish: function(data){ 
         // jatos.endStudy(jsPsych.data.get().csv());
-        window.location.assign(sona_link_str+sona_id)
+        // window.location.assign(sona_link_str+sona_id)
     },
     show_progress_bar: true,
 })
-
-let sona_id = jsPsych.data.urlVariables()['sona_id']
-console.log(sona_id)
 
 let width = window.innerWidth
 let height = window.innerHeight

@@ -17,7 +17,8 @@
     <script>
         // let sona_link_str = "https://marburg-psychology.sona-systems.com/webstudy_credit.aspx?experiment_id=683&credit_token=ef3f6b6cfcb94eac90e079171f750fb1&survey_code="
         // from https://osdoc.cogsci.nl/3.3/manual/osweb/sonasystems/ :
-        if (window.jatos && jatos.urlQueryParameters.SONA_ID) {
+        const vars = {}
+        if (window.jatos && jatos.urlQueryParameters?.SONA_ID) {
             console.log('Sona information is available')
             vars.sona_participant_id = jatos.urlQueryParameters.SONA_ID
         } else {
